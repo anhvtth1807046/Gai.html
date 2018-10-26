@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&subset=vietnamese');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+
+footer {
+    height: 50px;
+    text-align: center;
+}
+
+header {
+    padding: 15px;
+}
+
+header .logo img {
+    float: left;
+    width: 30%;
+    width: 100px;
+    margin-left: 40px;
+}
+
+header .search-box {
+    padding: 25px 0px;
+    float: left;
+    width: 70%;
+    margin-left: 20px;
+}
+
+header::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#list-video {
+    padding: 10px;
+    margin-left: 40px;
+}
+
+#list-video::after {
+    clear: both;
+    display: table;
+    content: "";
+}
+
+.video {
+    width: 30%;
+    float: left;
+    margin: 10px 15px;
+    text-align: center;
+    position: relative;
+    padding: 10px;
+    z-index: 1;
+    transition: .5s;
+}
+
+.video::after{
+    content: '';
+    background: transparent;
+    transition: .5s;
+    position: absolute;
+    top: -5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    z-index: -1;
+    background: linear-gradient(90deg, #50f4ab, rgba(244, 65, 165, 0.66), #ffeb3b, rgba(3, 169, 244, 0.91));
+    opacity: 0;
+    background-size: 100%;
+    filter: blur(20px);
+}
+
+.video:hover::after{
+    opacity: .3;
+}
+
+.video img {
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px #888888;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.video img:hover {
+    opacity:1;
+}
+
+.video:hover .title{
+    color: #434343;
+}
+
+.video .title {
+
+    margin-top: 10px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .5s;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    width: 100%;
+}
+
+.search-box {
+    margin: 15px;
+    position: relative;
+}
+
+.search-box input {
+    width: 50%;
+    height: 40px;
+    padding-left: 10px;
+    line-height: 40px;
+    border: none;
+    border-bottom: 2px solid #1d040f;
+    position: absolute;
+    top: 30px;
+}
+
+input:focus {
+    outline: none;
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 3; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (video) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Modal Video */
+
+/* Thêm hiệu ứng */
+.modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+    .modal-content {
+        width: 100%;
+    }
+}
+
+footer{
+    position: relative;
+    bottom: 0;
+    margin-top: 70px;
+}
+
+.search-box label{
+    position: absolute;
+    top: 40px;
+    transition: .5s;
+    left: 0;
+    pointer-events: none;
+}
+
+.search-box input:focus ~ label{
+    top: 20px;
+    font-size: 12px;
+}
+
+.search-box label.change{
+    top: 20px;
+    font-size: 12px;
+}

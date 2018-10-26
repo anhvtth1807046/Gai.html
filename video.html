@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hôm nay xem gì</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="video.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="https://raw.githubusercontent.com/luyendh-fpt/html-css-basic/master/youtube-native-js/img/youtube.png">
+    </div>
+    <div class="search-box">
+        <input type="text" name="keyword" id="keyword" onkeypress="changeLabel()" onblur="changeLabel()">
+        <label for="keyword" id="labelKeyWord">Tìm kiếm</label>
+    </div>
+</header>
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <iframe class="modal-content" id="video-frame" width="700" height="420"
+            src="" frameborder="0" allowfullscreen></iframe>
+</div>
+<div id="list-video">
+</div>
+<footer>
+    <span>Wish you have fun &copy; 2018</span>
+</footer>
+<script src="myjs8.js"></script>
+</body>
+</html>

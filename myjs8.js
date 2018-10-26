@@ -1,50 +1,71 @@
-// Function call youtube dùng để gọi nhiều lần và ở nhiều nơi.
-function Call_Youtube_API(youtubeAPI) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(xhttp.responseText);
-            var jsObject = JSON.parse(xhttp.responseText);
-            var content = '';
-            for (var i = 0; i < jsObject.items.length; i++) {
-                var videoItem = '<div class="tube-item">';
-                videoItem += '<iframe width="660" height="355" ' +
-                    'src="https://www.youtube.com/embed/' + jsObject.items[i].id.videoId + '"' +
-                    'frameborder="0" allow="autoplay; encryted-media" ' +
-                    'allowfullscreen></iframe>';
-                videoItem += '<h3>' + jsObject.items[i].snippet.title + '</h3>';
-                videoItem += '</div>';
-                content += videoItem;
-            }
-            document.getElementById("demo").innerHTML = content;
+document.addEventListener("DOMContentLoaded", function (event) {
+    var inputSearch = document.getElementById("keyword");
+    inputSearch.onkeydown = function (event) {
+        if (event.keyCode == 13) {
+            loadVideo(this.value);
         }
     };
-    xhttp.open("GET", youtubeAPI, true);
-    xhttp.send();
-}
-
-
-var btnSearch = document.getElementById('btnSearch');
-btnSearch.onclick = function () {
-    var keyword = document.getElementById('keyword').value;
-    var YOUTUBE_API = "https://content.googleapis.com/youtube/v3/search?q=" + keyword + "&type=video&maxResults=9&part=snippet&key=AIzaSyAwUjk3CwtXCiB_W6Xi0colfOKPgm90hHc";
-    Call_Youtube_API(YOUTUBE_API);
+    loadVideo("MTP");
+});
+// Lấy ra cái modal
+var modal = document.getElementById('myModal');
+// Lấy ra element có class là close và lấy ra phần tử đầu tiên nghĩa là index thứ 0 => code nà getElementsByClassName("close")[0];
+var span = document.getElementsByClassName("close")[0];
+var videoFrame = document.getElementById("video-frame");
+// khi người dùng ấn X thì close Video
+span.onclick = function () {
+    // videoFrame.pause;
+    closeVideo();
 };
-
-
-// Function ChangeVideo.
-function changeVideo() {
-
-    if (window.event.keyCode != 13) {
-        return;
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        closeVideo();
     }
-    var keyword = document.getElementById('keyword').value;
+};
+function loadVideo(keyword) {
     var YOUTUBE_API = "https://content.googleapis.com/youtube/v3/search?q=" + keyword + "&type=video&maxResults=9&part=snippet&key=AIzaSyAwUjk3CwtXCiB_W6Xi0colfOKPgm90hHc";
-    Call_Youtube_API(YOUTUBE_API);
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", YOUTUBE_API, true);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // Parse kết quả trả về thành kiểu json.
+            var responseJson = JSON.parse(this.responseText);
+            var htmlContent = "";
+            for (var i = 0; i < responseJson.items.length; i++) {
+                if (responseJson.items[i].id.kind == 'youtube#channel') { //Ckeck xem neu nó là chanel mà ko phải video thì bỏ qua
+                    continue;
+                }
+                var videoId = responseJson.items[i].id.videoId;
+                var videoTitle = responseJson.items[i].snippet.title;
+                var videoThumbnail = responseJson.items[i].snippet.thumbnails.medium.url;
+                htmlContent += '<div class="video" onclick="showVideo(' + videoId + ')">';
+                htmlContent += '<img src="' + videoThumbnail + '">';
+                htmlContent += '<div class="title">' + videoTitle + '</div>';
+                htmlContent += '</div>'
+            }
+            document.getElementById("list-video").innerHTML = htmlContent;
+        } else if (this.readyState == 4) {
+            console.log("Ô shit");
+        }
+    };
+    xhr.send();
 }
-// End Function ChangeVideo.
+function closeVideo() {
+    modal.style.display = "none";
+    videoFrame.src = "";
+}
+function showVideo(videoId) {
+    videoFrame.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+    setTimeout(function () {
+        modal.style.display = "block";
+    }, 300);
+}
 
-
-var keyword = document.getElementById('keyword').value;
-var YOUTUBE_API = "https://content.googleapis.com/youtube/v3/search?q=" + keyword + "&type=video&maxResults=9&part=snippet&key=AIzaSyAwUjk3CwtXCiB_W6Xi0colfOKPgm90hHc";
-Call_Youtube_API(YOUTUBE_API);
+function changeLabel() {
+    if (document.getElementById('keyword').value > 0 || document.getElementById('keyword').value != null){
+        document.getElementById('labelKeyWord').classList.add('change');
+    }else{
+        document.getElementById('labelKeyWord').classList.remove('change');
+    }
+}
