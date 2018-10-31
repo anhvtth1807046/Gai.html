@@ -1,50 +1,328 @@
+// Lần 1
 
-function Call_MP3_API(MP3API) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(xhttp.responseText);
-            var jsObject = JSON.parse(xhttp.responseText);
-            var content = '';
-            for (var i = 0; i < jsObject.items.length; i++) {
-                var videoItem = '<div class="tube-item">';
-                videoItem += '<iframe width="660" height="355" ' +
-                    'src="https://https://mp3.zing.vn/embed/' + jsObject.items[i].id.audioId + '"' +
-                    'frameborder="0" allow="autoplay; encryted-media" ' +
-                    'allowfullscreen></iframe>';
-                audioItem += '<h3>' + jsObject.items[i].snippet.title + '</h3>';
-                audioItem += '</div>';
-                content += audioItem;
-            }
-            document.getElementById("demo").innerHTML = content;
+var MY_API = 'https://2-dot-backup-server-002.appspot.com/_api/v2/songs/get-free-songs';
+
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var listSong = JSON.parse(this.responseText);
+        var content = '';
+        for (var i = 0; i < listSong.length; i++) {
+            content += '<div class="song-item">';
+            content += '<div class="song-index">' + (i + 1) + '</div>';
+            content += '<div class="song-thumbnail">';
+            content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+            content += '</div>';
+            content += '<div class="song-infor">';
+            content += '<div class="song-name">' + listSong[i].name + '</div>';
+            content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+            content += '</div>';
+            content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+            content += '</div>';
         }
-    };
-    xhttp.open("GET", MP3API, true);
-    xhttp.send();
-}
-
-
-var btnSearch = document.getElementById('btnSearch');
-btnSearch.onclick = function () {
-    var keyword = document.getElementById('keyword').value;
-    var MP3_API = "https://content.googleapis.com/mp3/v3/search?q=" + keyword + "&type=video&maxResults=9&part=snippet&key=AIzaSyAwUjk3CwtXCiB_W6Xi0colfOKPgm90hHc";
-    Call_Youtube_API(MP3_API);
-};
-
-
-
-function MP3() {
-
-    if (window.event.keyCode != 13) {
-        return;
+        document.getElementById('list-song').innerHTML = content;
     }
-    var keyword = document.getElementById('keyword').value;
-    var MP3_API = "https://content.googleapis.com/youtube/v3/search?q=" + keyword + "&type=video&maxResults=9&part=snippet&key=AIzaSyAwUjk3CwtXCiB_W6Xi0colfOKPgm90hHc";
-    Call_MP3_API(MP3_API);
 }
-// End Function ChangeVideo.
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+    document.getElementById('my-mp3').src = link;
+    document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + " - " + singer;
+}
+
+// Lần 2
+var MY_API = 'https://2-dot-backup-server-002.appspot.com/_api/v2/songs/get-free-songs';
+
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var listSong = JSON.parse(this.responseText);
+        var content = '';
+        for (var i = 0; i < listSong.length; i++) {
+            content += '<div class="song-item">';
+            content += '<div class="song-index">' + (i + 1) + '</div>';
+            content += '<div class="song-thumbnail">';
+            content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+            content += '</div>';
+            content += '<div class="song-infor">';
+            content += '<div class="song-name">' + listSong[i].name + '</div>';
+            content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+            content += '</div>';
+            content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+            content += '</div>';
+        }
+        document.getElementById('list-song').innerHTML = content;
+    }
+}
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+    document.getElementById('my-mp3').src = link;
+    document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + " - " + singer;
+}
+
+// Lần 3
+var MY_API = 'https://2-dot-backup-server-002.appspot.com/_api/v2/songs/get-free-songs';
+
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var listSong = JSON.parse(this.responseText);
+        var content = '';
+        for (var i = 0; i < listSong.length; i++) {
+            content += '<div class="song-item">';
+            content += '<div class="song-index">' + (i + 1) + '</div>';
+            content += '<div class="song-thumbnail">';
+            content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+            content += '</div>';
+            content += '<div class="song-infor">';
+            content += '<div class="song-name">' + listSong[i].name + '</div>';
+            content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+            content += '</div>';
+            content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+            content += '</div>';
+        }
+        document.getElementById('list-song').innerHTML = content;
+    }
+}
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+    document.getElementById('my-mp3').src = link;
+    document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + " - " + singer;
+}
+
+// Lần 4
+var MY_API = 'https://2-dot-backup-server-002.appspot.com/_api/v2/songs/get-free-songs';
+
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var listSong = JSON.parse(this.responseText);
+        var content = '';
+        for (var i = 0; i < listSong.length; i++) {
+            content += '<div class="song-item">';
+            content += '<div class="song-index">' + (i + 1) + '</div>';
+            content += '<div class="song-thumbnail">';
+            content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+            content += '</div>';
+            content += '<div class="song-infor">';
+            content += '<div class="song-name">' + listSong[i].name + '</div>';
+            content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+            content += '</div>';
+            content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+            content += '</div>';
+        }
+        document.getElementById('list-song').innerHTML = content;
+    }
+}
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+    document.getElementById('my-mp3').src = link;
+    document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + " - " + singer;
+}
 
 
-var keyword = document.getElementById('keyword').value;
-var MP3_API = "https://content.googleapis.com/youtube/v3/search?q=" + keyword + "&type=video&maxResults=9&part=snippet&key=AIzaSyAwUjk3CwtXCiB_W6Xi0colfOKPgm90hHc";
-Call_MP3_API(MP3_API);
+//Lần 5
+
+var MY_API = 'https://2-dot-backup-server-002.appspot.com/_api/v2/songs/get-free-songs';
+
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var listSong = JSON.parse(this.responseText);
+        var content = '';
+        for (var i = 0; i < listSong.length; i++) {
+            content += '<div class="song-item">';
+            content += '<div class="song-index">' + (i + 1) + '</div>';
+            content += '<div class="song-thumbnail">';
+            content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+            content += '</div>';
+            content += '<div class="song-infor">';
+            content += '<div class="song-name">' + listSong[i].name + '</div>';
+            content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+            content += '</div>';
+            content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+            content += '</div>';
+        }
+        document.getElementById('list-song').innerHTML = content;
+    }
+}
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+    document.getElementById('my-mp3').src = link;
+    document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + " - " + singer;
+}
+
+
+//Lần 6
+var MY_API = 'https://2-dot-backup-server-002.appspot.com/_api/v2/songs/get-free-songs';
+
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var listSong = JSON.parse(this.responseText);
+        var content = '';
+        for (var i = 0; i < listSong.length; i++) {
+            content += '<div class="song-item">';
+            content += '<div class="song-index">' + (i + 1) + '</div>';
+            content += '<div class="song-thumbnail">';
+            content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+            content += '</div>';
+            content += '<div class="song-infor">';
+            content += '<div class="song-name">' + listSong[i].name + '</div>';
+            content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+            content += '</div>';
+            content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+            content += '</div>';
+        }
+        document.getElementById('list-song').innerHTML = content;
+    }
+}
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+    document.getElementById('my-mp3').src = link;
+    document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + " - " + singer;
+}
+
+
+//Lần 7
+var MY_API = 'https://2-dot-backup-server-002.appspot.com/_api/v2/songs/get-free-songs';
+
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var listSong = JSON.parse(this.responseText);
+        var content = '';
+        for (var i = 0; i < listSong.length; i++) {
+            content += '<div class="song-item">';
+            content += '<div class="song-index">' + (i + 1) + '</div>';
+            content += '<div class="song-thumbnail">';
+            content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+            content += '</div>';
+            content += '<div class="song-infor">';
+            content += '<div class="song-name">' + listSong[i].name + '</div>';
+            content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+            content += '</div>';
+            content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+            content += '</div>';
+        }
+        document.getElementById('list-song').innerHTML = content;
+    }
+}
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+    document.getElementById('my-mp3').src = link;
+    document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + " - " + singer;
+}
+
+
+// Lần 8
+var MY_API = 'https://2-dot-backup-server-002.appspot.com/_api/v2/songs/get-free-songs';
+
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var listSong = JSON.parse(this.responseText);
+        var content = '';
+        for (var i = 0; i < listSong.length; i++) {
+            content += '<div class="song-item">';
+            content += '<div class="song-index">' + (i + 1) + '</div>';
+            content += '<div class="song-thumbnail">';
+            content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+            content += '</div>';
+            content += '<div class="song-infor">';
+            content += '<div class="song-name">' + listSong[i].name + '</div>';
+            content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+            content += '</div>';
+            content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+            content += '</div>';
+        }
+        document.getElementById('list-song').innerHTML = content;
+    }
+}
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+    document.getElementById('my-mp3').src = link;
+    document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + " - " + singer;
+}
+
+
+//Lần 9
+var MY_API = 'https://2-dot-backup-server-002.appspot.com/_api/v2/songs/get-free-songs';
+
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var listSong = JSON.parse(this.responseText);
+        var content = '';
+        for (var i = 0; i < listSong.length; i++) {
+            content += '<div class="song-item">';
+            content += '<div class="song-index">' + (i + 1) + '</div>';
+            content += '<div class="song-thumbnail">';
+            content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+            content += '</div>';
+            content += '<div class="song-infor">';
+            content += '<div class="song-name">' + listSong[i].name + '</div>';
+            content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+            content += '</div>';
+            content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+            content += '</div>';
+        }
+        document.getElementById('list-song').innerHTML = content;
+    }
+}
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+    document.getElementById('my-mp3').src = link;
+    document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + " - " + singer;
+}
+
+
+
+// Lần 10
+var MY_API = 'https://2-dot-backup-server-002.appspot.com/_api/v2/songs/get-free-songs';
+
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var listSong = JSON.parse(this.responseText);
+        var content = '';
+        for (var i = 0; i < listSong.length; i++) {
+            content += '<div class="song-item">';
+            content += '<div class="song-index">' + (i + 1) + '</div>';
+            content += '<div class="song-thumbnail">';
+            content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+            content += '</div>';
+            content += '<div class="song-infor">';
+            content += '<div class="song-name">' + listSong[i].name + '</div>';
+            content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+            content += '</div>';
+            content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+            content += '</div>';
+        }
+        document.getElementById('list-song').innerHTML = content;
+    }
+}
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+    document.getElementById('my-mp3').src = link;
+    document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + " - " + singer;
+}
